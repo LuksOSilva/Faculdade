@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+    <script defer src="assets/js/mascaras.js"></script>
+</head>
+<body>
+
+<header>
+    <h1>Cadastro de Voluntários e Apoiadores</h1>
+    <nav>
+        <ul>
+            <li><a href="index.html">Início</a></li>
+            <li><a href="projetos.html">Projetos</a></li>
+            <li><a href="cadastro.html">Cadastro</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+
+<form>
+
+    <fieldset>
+        <legend>Informações Pessoais</legend>
+
+        <label>Nome Completo:
+            <input type="text" required>
+        </label>
+
+        <label>E-mail:
+            <input type="email" required>
+        </label>
+
+        <label>CPF:
+            <input id="cpf" type="text" required minlength="14" maxlength="14">
+        </label>
+
+        <label>Telefone:
+            <input id="telefone" type="text" required minlength="14" maxlength="15">
+        </label>
+
+        <label>Data de Nascimento:
+            <input type="date" required>
+        </label>
+
+    </fieldset>
+
+    <fieldset>
+        <legend>Endereço</legend>
+
+        <label>Endereço:
+            <input type="text" required>
+        </label>
+
+        <label>CEP:
+            <input id="cep" type="text" required minlength="9" maxlength="9">
+        </label>
+
+        <label>Cidade:
+            <input type="text" required>
+        </label>
+
+        <label>Estado:
+            <select required>
+                <option value="">Selecione</option>
+                <option>SP</option>
+                <option>RJ</option>
+                <option>MG</option>
+                <option>ES</option>
+                <option>PR</option>
+                <option>SC</option>
+                <option>RS</option>
+            </select>
+        </label>
+
+    </fieldset>
+
+    <button type="submit">Enviar Cadastro</button>
+
+</form>
+
+</main>
+
+<footer>
+    <p>&copy; 2025 ONG Esperança Viva</p>
+</footer>
+
+</body>
+</html>
