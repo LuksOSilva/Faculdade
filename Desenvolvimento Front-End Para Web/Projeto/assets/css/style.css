@@ -1,3 +1,19 @@
+/* Definições de Cores Base (Modo Claro) */
+:root {
+    --fundo-claro: #f8f9fa;
+    --texto-escuro: #333;
+    --cor-principal: #1E7A36; /* Verde escuro */
+    --cor-secundaria: #007bff; /* Azul para foco e destaque */
+    --fundo-header-footer: #1E7A36;
+    --texto-header-footer: #fff;
+    --fundo-secao: white;
+    --borda-secao: #ddd;
+    --borda-form: #ccc;
+    --borda-input: #aaa;
+}
+
+
+
 /* === RESET BÁSICO === */
 * {
     margin: 0;
@@ -7,16 +23,18 @@
 }
 
 body {
-    background: #f8f9fa;
-    color: #333;
+    /* Usa variáveis para o corpo no Modo Claro */
+    background: var(--fundo-claro);
+    color: var(--texto-escuro);
     line-height: 1.6;
 }
 
 /* === CABEÇALHO (Estilos de Desktop) === */
 header {
-    background: #1E7A36;
+    /* Usa variáveis para header */
+    background: var(--fundo-header-footer);
     padding: 20px;
-    color: white;
+    color: var(--texto-header-footer);
     position: relative; 
 }
 
@@ -39,7 +57,8 @@ nav {
 }
 
 .nav-menu li a {
-    color: white;
+    /* Usa variáveis para o texto do nav */
+    color: var(--texto-header-footer);
     text-decoration: none;
     font-weight: bold;
     transition: 0.2s;
@@ -64,7 +83,8 @@ nav {
     width: 25px;
     height: 3px;
     margin: 5px auto;
-    background-color: white;
+    /* Usa variáveis para as barras */
+    background-color: var(--texto-header-footer);
     transition: all 0.3s ease-in-out;
 }
 
@@ -96,9 +116,10 @@ main img {
 section {
     margin-bottom: 40px;
     padding: 20px;
-    background: white;
+    /* Usa variáveis para seções */
+    background: var(--fundo-secao);
     border-radius: 8px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--borda-secao);
 }
 
 .center-section {
@@ -112,7 +133,8 @@ section {
 
 section h2 {
     margin-bottom: 15px;
-    color: #1E7A36;
+    /* Usa variáveis para H2 */
+    color: var(--cor-principal);
 }
 
 /* === ARTIGOS === */
@@ -122,19 +144,22 @@ article {
 
 article h3 {
     margin-bottom: 8px;
-    color: #1E7A36;
+    /* Usa variáveis para H3 */
+    color: var(--cor-principal);
 }
 
 /* === FORMULÁRIOS === */
 form {
-    background: white;
+    /* Usa variáveis para form */
+    background: var(--fundo-secao);
     padding: 25px;
     border-radius: 8px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--borda-form);
 }
 
 fieldset {
-    border: 1px solid #1E7A36;
+    /* Usa variáveis para fieldset */
+    border: 1px solid var(--cor-principal);
     padding: 20px;
     margin-bottom: 20px;
     border-radius: 8px;
@@ -142,7 +167,8 @@ fieldset {
 
 legend {
     padding: 5px 10px;
-    background: #1E7A36;
+    /* Usa variáveis para legend */
+    background: var(--cor-principal);
     color: white;
     border-radius: 4px;
     font-size: 14px;
@@ -159,19 +185,24 @@ input, select {
     padding: 10px;
     margin-top: 5px;
     border-radius: 6px;
-    border: 1px solid #aaa;
+    /* Usa variáveis para input */
+    border: 1px solid var(--borda-input);
     font-size: 15px;
+    background-color: var(--fundo-secao);
+    color: var(--texto-escuro);
 }
 
 input:focus, select:focus {
-    outline: none;
-    border-color: #1E7A36;
-    box-shadow: 0 0 4px #1E7A36;
+    outline: none; /* Mantido do seu original, mas o focus WCAG (abaixo) irá sobrescrever */
+    /* Usa variáveis para input focus */
+    border-color: var(--cor-principal);
+    box-shadow: 0 0 4px var(--cor-principal);
 }
 
 button {
     padding: 12px 20px;
-    background: #1E7A36;
+    /* Usa variáveis para button */
+    background: var(--cor-principal);
     color: white;
     border: none;
     border-radius: 6px;
@@ -181,20 +212,27 @@ button {
 }
 
 button:hover {
-    background: #155A28;
+    background: #155A28; 
 }
 
 /* === RODAPÉ === */
 footer {
     text-align: center;
     padding: 20px;
-    background: #1E7A36;
-    color: white;
+    /* Usa variáveis para footer */
+    background: var(--fundo-header-footer);
+    color: var(--texto-header-footer);
     margin-top: 40px;
 }
 
 /* === RESPONSIVIDADE (MOBILE) === */
 @media (max-width: 768px) {
+    
+    /* Ajustes para o botão toggle em mobile */
+    #theme-toggle {
+        right: 20px; /* Posição mais ideal */
+        width: auto; /* <<-- Adicione esta linha para corrigir o tamanho */
+    }
     
     header {
         flex-direction: column; 
@@ -209,7 +247,7 @@ footer {
 
     /* 2. POSICIONAMENTO DO HAMBÚRGUER */
     .hamburger {
-        display: block; 
+        display: block;
         top: 25px; 
         right: 20px;
         z-index: 10;
@@ -259,5 +297,96 @@ footer {
 
     button {
         width: 100%;
+    }
+}
+
+
+/* ================================================= */
+/* ♿ WCAG 2.1 - IMPLEMENTAÇÕES DE ACESSIBILIDADE */
+/* ================================================= */
+
+/* 1. FOCUS VISÍVEL (Navegação por Teclado - WCAG AA) */
+a:focus,
+button:focus,
+input:focus,
+select:focus,
+textarea:focus,
+#theme-toggle:focus {
+    /* Focus de alto contraste (mínimo 3:1) */
+    outline: 4px solid var(--cor-secundaria); 
+    outline-offset: 2px;
+    box-shadow: 0 0 0 1px rgba(0, 123, 255, 0.7);
+}
+
+/* ESTILO PARA O BOTÃO TOGGLE */
+#theme-toggle {
+    background: var(--cor-secundaria);
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1.2em;
+    position: absolute; 
+    top: 20px;
+    right: 20px; 
+    z-index: 1000;
+    height: 45px;
+}
+
+
+/* 2. MODO ESCURO FORÇADO (Ativado pela classe JS) */
+body.dark-mode {
+    /* Redefine as variáveis globais para as cores escuras */
+    --fundo-claro: #121212; 
+    --texto-escuro: #f0f0f0; 
+    --cor-principal: #4caf50; /* Verde mais claro para contraste em fundo escuro */
+    --cor-secundaria: #90caf9;
+    --fundo-header-footer: #222;
+    --fundo-secao: #1e1e1e;
+    --borda-secao: #333;
+    --borda-form: #555;
+    --borda-input: #555;
+    
+    /* Aplica as novas variáveis ao body */
+    background-color: var(--fundo-claro);
+    color: var(--texto-escuro);
+}
+
+body.dark-mode a {
+    color: var(--cor-secundaria); 
+}
+
+
+
+/* 4. VERSÃO DE ALTO CONTRASTE (forced-colors) - WCAG AA */
+@media (forced-colors: active) {
+    /* Reseta estilos que podem quebrar o contraste do sistema */
+    * {
+        background-color: transparent !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+        filter: none !important;
+    }
+
+    /* Força todos os elementos principais a usarem as cores de sistema para máximo contraste */
+    body, a, p, h1, h2, h3, h4, 
+    header, footer, section, form, fieldset, legend, button {
+        color: FieldText !important; 
+        border-color: FieldText !important;
+        background-color: Canvas !important;
+    }
+    
+    /* Garante que o foco use a cor de destaque do sistema (Highlight) */
+    :focus {
+        outline: 3px solid Highlight !important;
+        outline-offset: 1px;
+    }
+    
+    /* Oculta os ícones do toggle em modo forçado, se houver */
+    #theme-toggle {
+        background-color: ButtonFace !important;
+        color: ButtonText !important;
+        border: 2px solid ButtonText !important;
     }
 }

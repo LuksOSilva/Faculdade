@@ -132,7 +132,6 @@ document.addEventListener('DOMContentLoaded', function() {
         // Se a rota for 'cadastro', configurar a validação e reaplicar máscaras
         if (route === 'cadastro') {
             setupFormValidation();
-            // CHAME AS FUNÇÕES DE MÁSCARA AQUI PARA REAPLICAR NO NOVO FORMULÁRIO
             setupInputMasks(); 
         }
     }
@@ -164,6 +163,16 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Configuração do menu hambúrguer com ARIA
+    hamburger.addEventListener("click", () => {
+        navMenu.classList.toggle("active");
+        hamburger.classList.toggle("active");
+
+        // ATUALIZAÇÃO ARIA
+        const isExpanded = hamburger.classList.contains("active");
+        hamburger.setAttribute("aria-expanded", isExpanded);
+    });
+
     // Configurar o roteamento para cliques nos links
     navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
@@ -188,6 +197,8 @@ document.addEventListener('DOMContentLoaded', function() {
             if (navMenu.classList.contains("active")) {
                  navMenu.classList.remove("active");
                  hamburger.classList.remove("active");
+                 // ATUALIZAÇÃO ARIA ao fechar
+                 hamburger.setAttribute("aria-expanded", "false"); 
             }
         });
     });
@@ -242,7 +253,48 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Carregar a rota inicial ao carregar a página (Garante que a rota 'home' está ativa no primeiro carregamento)
-    // Isso é opcional, mas garante que o DOM fique limpo e o SPA inicie corretamente.
+    // === Lógica do Toggle de Tema/Acessibilidade ===
+    const themeToggle = document.getElementById('theme-toggle');
+    const body = document.body;
+
+    // Carregar preferência do usuário (se existir no localStorage)
+    const currentTheme = localStorage.getItem('theme');
+    
+    // Checar a preferência do sistema
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches; 
+
+    // Lógica para aplicar o tema inicial:
+    // 1. Se o tema salvo for 'dark'.
+    // 2. OU Se não houver tema salvo (currentTheme é null) E a preferência do sistema for escura.
+    if (currentTheme === 'dark' || (!currentTheme && prefersDark)) {
+        body.classList.add('dark-mode');
+        themeToggle.textContent = '☀️'; // Mudar o ícone para Sol
+    } else {
+        // Aplica o ícone padrão. Se a preferência salva for 'light', não faz nada, 
+        // mas garante que a classe dark-mode seja removida se estava lá por algum motivo
+        themeToggle.textContent = '🌙'; 
+        if (currentTheme === 'light' && body.classList.contains('dark-mode')) {
+            body.classList.remove('dark-mode');
+        }
+    }
+
+    // Listener para o botão de toggle
+    if (themeToggle) { // Garante que o botão exista antes de adicionar o listener
+        themeToggle.addEventListener('click', () => {
+            if (body.classList.contains('dark-mode')) {
+                // Se estiver escuro, muda para claro
+                body.classList.remove('dark-mode');
+                localStorage.setItem('theme', 'light');
+                themeToggle.textContent = '🌙';
+            } else {
+                // Se estiver claro, muda para escuro
+                body.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark');
+                themeToggle.textContent = '☀️';
+            }
+        });
+    }
+    
+    // Carregar a rota inicial ao carregar a página
     loadContent('home'); 
 });
